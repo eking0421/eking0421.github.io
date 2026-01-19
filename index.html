@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oregon Loop 2026 - Road Trip Itinerary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-dark: #1B4332;
+            --forest-mid: #2D6A4F;
+            --forest-light: #52B788;
+            --ocean-dark: #1D3557;
+            --ocean-mid: #457B9D;
+            --ocean-light: #A8DADC;
+            --sand: #F1FAEE;
+            --sunset: #E63946;
+            --mist: #E8F1F2;
+            --text-dark: #1A1A1A;
+            --text-light: #4A5568;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--sand) 0%, var(--mist) 100%);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(27, 67, 50, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        nav.hidden {
+            transform: translateY(-100%);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--sand);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--sand);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a:hover {
+            background: var(--forest-light);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--forest-mid);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--forest-light);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            padding: 4rem 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--ocean-dark) 0%, var(--forest-dark) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path d="M0,300 Q300,200 600,300 T1200,300 L1200,600 L0,600 Z" fill="rgba(255,255,255,0.03)"/></svg>') no-repeat center bottom;
+            background-size: cover;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero .dates {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            display: block;
+            color: var(--ocean-light);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Section */
+        section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        section:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+
+        section:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .section-header h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            color: var(--forest-dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--forest-light), var(--ocean-mid));
+            border-radius: 2px;
+        }
+
+        /* Overview Table */
+        .overview-table {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .overview-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .overview-table th {
+            background: linear-gradient(135deg, var(--forest-mid), var(--forest-dark));
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .overview-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--mist);
+        }
+
+        .overview-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .overview-table tr:hover {
+            background: var(--sand);
+        }
+
+        .day-number {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ocean-mid);
+        }
+
+        /* Map Section */
+        .map-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .map-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin: 0.5rem 0;
+        }
+
+        .map-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            background: var(--ocean-mid);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .map-link:hover {
+            background: var(--ocean-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Resources */
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--forest-light);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .resource-card a {
+            color: var(--ocean-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .resource-card a:hover {
+            color: var(--forest-light);
+        }
+
+        /* Day Section */
+        .day-section {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            margin: 3rem 0;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, var(--forest-mid), var(--ocean-mid));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .day-header h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .day-header .date {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .day-header .route {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .day-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1px;
+            background: var(--mist);
+        }
+
+        .info-box {
+            background: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-value {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ocean-dark);
+        }
+
+        .day-content {
+            padding: 2rem;
+        }
+
+        .day-map {
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .day-map img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Itinerary Items */
+        .itinerary-item {
+            background: var(--sand);
+            border-left: 4px solid var(--forest-light);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .itinerary-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .itinerary-time {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--forest-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .itinerary-type {
+            display: inline-block;
+            background: var(--ocean-light);
+            color: var(--ocean-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-left: 0.5rem;
+        }
+
+        .itinerary-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--ocean-dark);
+            margin: 0.5rem 0;
+        }
+
+        .itinerary-details {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .itinerary-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .itinerary-details li {
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .itinerary-details li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--forest-light);
+            font-weight: bold;
+        }
+
+        .itinerary-details a {
+            color: var(--ocean-mid);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .itinerary-details a:hover {
+            color: var(--forest-mid);
+            border-bottom-color: var(--forest-light);
+        }
+
+        /* Notes */
+        .notes {
+            background: linear-gradient(135deg, var(--ocean-light), var(--mist));
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .notes h4 {
+            font-family: 'Crimson Pro', serif;
+            color: var(--ocean-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .notes ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notes li {
+            padding: 0.25rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-dark);
+        }
+
+        .notes li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--ocean-dark);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .dates {
+                font-size: 1.2rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .nav-brand {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .day-header h3 {
+                font-size: 1.5rem;
+            }
+
+            .back-to-top {
+                width: 45px;
+                height: 45px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+
+            .overview-table th,
+            .overview-table td {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            nav, .back-to-top {
+                display: none;
+            }
+
+            .hero {
+                margin-top: 0;
+            }
+
+            section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#top" class="nav-brand">Oregon Loop 2026</a>
+            <div class="nav-links">
+                <a href="#overview">Overview</a>
+                <a href="#day1">Day 1</a>
+                <a href="#day2">Day 2</a>
+                <a href="#day3">Day 3</a>
+                <a href="#day4">Day 4</a>
+                <a href="#day5">Day 5</a>
+                <a href="#day6">Day 6</a>
+                <a href="#day7">Day 7</a>
+                <a href="#day8">Day 8</a>
+                <a href="#day9">Day 9</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+    <!-- Hero Section -->
+    <div class="hero" id="top">
+        <div class="hero-content">
+            <h1>OREGON LOOP</h1>
+            <p class="dates">September 5 - 13, 2026</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">9</span>
+                    <span class="stat-label">Days</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">850</span>
+                    <span class="stat-label">Miles</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">$2,500</span>
+                    <span class="stat-label">Per Couple</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Complete Route Map -->
+        <section id="route">
+            <div class="section-header">
+                <h2>Complete Oregon Loop Route</h2>
+                <p style="color: var(--text-light); margin-top: 0.5rem;">Portland → Coast → Portland Loop</p>
+            </div>
+            <div class="map-section">
+                <img src="images/Map Oregon Loop 2026.png" alt="Complete Oregon Loop Route Map">
+                <a href="https://maps.app.goo.gl/TCocYz7W7ferncnGA" class="map-link" target="_blank">📍 View in Google Maps</a>
+            </div>
+        </section>
+
+        <!-- Trip Overview -->
+        <section id="overview">
+            <div class="section-header">
+                <h2>Trip Overview</h2>
+            </div>
+            <div class="overview-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Date</th>
+                            <th>Itinerary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="day-number">1</span></td>
+                            <td>Sat 9/5</td>
+                            <td><strong>Portland → White Salmon, WA</strong><br>Crown Point Vista House</td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-number">2</span></td>
+                            <td>Sun 9/6</td>
+                            <td><strong>White Salmon → Bend</strong><br>Breakfast w/Tristan • Timberline • Smith Rock</td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-number">3</span></td>
+                            <td>Mon 9/7</td>
+                            <td><strong>Bend → Crater Lake</strong><br>Rim Drive • Watchman Peak Trail</td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-number">4</span></td>
+                            <td>Tue 9/8</td>
+                            <td><strong>Crater Lake → Yachats</strong><br>Toketee Falls • Coast Drive</td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-number">5</span></td>
+                            <td>Wed 9/9</td>
+                            <td><strong>Yachats → Gleneden</strong><br>Thor's Well • Cape Perpetua • Devil's Churn</td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-number">6</span></td>
+                            <td>Thu 9/10</td>
+                            <td><strong>Central Coast</strong><br>Yaquina Head • Newport • Depoe Bay</td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-number">7</span></td>
+                            <td>Fri 9/11</td>
+                            <td><strong>Coast → Cannon Beach</strong><br>Drift Creek • Cape Kiwanda • Tillamook</td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-number">8</span></td>
+                            <td>Sat 9/12</td>
+                            <td><strong>Cannon Beach → Portland</strong><br>Haystack Rock • Powell's Books • Pinball</td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-number">9</span></td>
+                            <td>Sun 9/13</td>
+                            <td><strong>Portland Departure</strong><br>PDX Airport</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Essential Resources -->
+        <section id="resources">
+            <div class="section-header">
+                <h2>Essential Resources</h2>
+            </div>
+            <div class="resources">
+                <div class="resource-card">
+                    <a href="https://traveloregon.com/" target="_blank">🌲 Travel Oregon</a>
+                </div>
+                <div class="resource-card">
+                    <a href="https://runawayann.com/oregon-coast-4-day-itinerary/" target="_blank">🗺️ Coastal Itinerary Guide</a>
+                </div>
+                <div class="resource-card">
+                    <a href="https://oregonessential.com/" target="_blank">⛰️ Oregon Essential</a>
+                </div>
+                <div class="resource-card">
+                    <a href="https://tides.net/oregon/" target="_blank">🌊 Oregon Tide Charts<br><small>(Critical for Thor's Well!)</small></a>
+                </div>
+                <div class="resource-card">
+                    <a href="https://www.recreation.gov/" target="_blank">🎫 Multnomah Falls Permits</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 1 -->
+        <section id="day1">
+            <div class="day-section">
+                <div class="day-header">
+                    <h3>DAY 1</h3>
+                    <p class="date">Saturday, September 5</p>
+                    <p class="route">Portland → White Salmon, WA</p>
+                </div>
+                <div class="day-info">
+                    <div class="info-box">
+                        <div class="info-label">Drive</div>
+                        <div class="info-value">1 hr / 60 mi</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Sunset</div>
+                        <div class="info-value">7:45 PM</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Budget</div>
+                        <div class="info-value">$550</div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-map">
+                        <img src="images/Map Day 1.png" alt="Day 1 Route Map">
+                        <a href="https://maps.app.goo.gl/nmjFGHd2XTUGhwD88" class="map-link" target="_blank">📍 View Route in Google Maps</a>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">12:30 PM <span class="itinerary-type">Arrival</span></div>
+                        <div class="itinerary-title">PDX Airport Arrival</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Southwest flight from BWI</li>
+                                <li>Pickup rental car (allow 30-45 minutes)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">2:00-2:45 PM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Crown Point Vista House</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 1 hour from airport</li>
+                                <li>Historic observatory with panoramic Columbia River Gorge views</li>
+                                <li>Parking: $12 day-use fee</li>
+                                <li>Hours: 10 AM-4 PM (arrive before 3 PM)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">4:00 PM <span class="itinerary-type">Hotel</span></div>
+                        <div class="itinerary-title">Inn of the White Salmon</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 30 minutes</li>
+                                <li>Check-in: 4:00 PM • Check-out: 11:00 AM</li>
+                                <li>Rate: $192-200/night per room (need 2 rooms)</li>
+                                <li>Phone: (509) 493-2335</li>
+                                <li>Eco-friendly boutique • Free WiFi & parking</li>
+                                <li><a href="http://innofthewhitesalmon.com" target="_blank">innofthewhitesalmon.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="notes">
+                        <h4>Notes</h4>
+                        <ul>
+                            <li>Allow extra time for rental car pickup</li>
+                            <li>Crown Point closes at 4 PM</li>
+                            <li>First night: settle in early</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 2 -->
+        <section id="day2">
+            <div class="day-section">
+                <div class="day-header">
+                    <h3>DAY 2</h3>
+                    <p class="date">Sunday, September 6</p>
+                    <p class="route">White Salmon → Timberline → Smith Rock → Bend</p>
+                </div>
+                <div class="day-info">
+                    <div class="info-box">
+                        <div class="info-label">Drive</div>
+                        <div class="info-value">4 hr / 175 mi</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Sunset</div>
+                        <div class="info-value">7:43 PM</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Budget</div>
+                        <div class="info-value">$350</div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-map">
+                        <img src="images/Map Day 2.png" alt="Day 2 Route Map">
+                        <a href="https://maps.app.goo.gl/kJNsZu4Y9vE8EUXv6" class="map-link" target="_blank">📍 View Route in Google Maps</a>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">9:00-10:00 AM <span class="itinerary-type">Meal</span></div>
+                        <div class="itinerary-title">Breakfast with Tristan</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Meet Tristan in Hood River or White Salmon</li>
+                                <li>Recommend: Bette's Place (Hood River) or Logs Restaurant (White Salmon)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">11:00 AM-12:30 PM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Timberline Lodge</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 1 hour from White Salmon</li>
+                                <li>Historic 1937 WPA lodge on Mt. Hood</li>
+                                <li>Famous from The Shining movie exterior shots</li>
+                                <li>Amazing mountain views and rustic architecture</li>
+                                <li>Free to visit, optional lunch at the Ram's Head Bar</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">3:00-5:00 PM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Smith Rock State Park</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 1 hour 45 minutes from Timberline</li>
+                                <li>World-famous rock climbing destination</li>
+                                <li>Misery Ridge Trail (3.7 mi loop, moderate-strenuous, 2 hrs)</li>
+                                <li>OR easier River Trail along Crooked River (1.5 mi, 1 hr)</li>
+                                <li>Parking: $5 day-use fee</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">6:00 PM <span class="itinerary-type">Hotel</span></div>
+                        <div class="itinerary-title">Oxford Hotel Bend</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 30 minutes from Smith Rock</li>
+                                <li>Check-in: 4:00 PM • Check-out: 11:00 AM</li>
+                                <li>Rate: $175-225/night per room (need 2 rooms)</li>
+                                <li>Phone: (541) 382-8436</li>
+                                <li>Downtown location • walkable to restaurants</li>
+                                <li><a href="http://oxfordhotelbend.com" target="_blank">oxfordhotelbend.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="notes">
+                        <h4>Notes</h4>
+                        <ul>
+                            <li>Check out of White Salmon by 11 AM</li>
+                            <li>Timberline Lodge parking can be busy on weekends</li>
+                            <li>Smith Rock gets hot in afternoon - bring water</li>
+                            <li>Downtown Bend has excellent dining options</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 3 -->
+        <section id="day3">
+            <div class="day-section">
+                <div class="day-header">
+                    <h3>DAY 3</h3>
+                    <p class="date">Monday, September 7</p>
+                    <p class="route">Bend → Crater Lake</p>
+                </div>
+                <div class="day-info">
+                    <div class="info-box">
+                        <div class="info-label">Drive</div>
+                        <div class="info-value">2 hr / 90 mi</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Sunset</div>
+                        <div class="info-value">7:41 PM</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Budget</div>
+                        <div class="info-value">$400</div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-map">
+                        <img src="images/Map Day 3.png" alt="Day 3 Route Map">
+                        <a href="https://maps.app.goo.gl/Xg1XtcJWiRoPLJ6L6" class="map-link" target="_blank">📍 View Route in Google Maps</a>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">9:00-10:00 AM <span class="itinerary-type">Activity</span></div>
+                        <div class="itinerary-title">Bend Morning (Optional)</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Downtown coffee shop stroll</li>
+                                <li>Drake Park along the Deschutes River</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">12:30-6:00 PM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Crater Lake National Park</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 2 hours from Bend</li>
+                                <li>Park entrance: $30/vehicle (7-day pass)</li>
+                                <li>Rim Drive: 33-mile scenic loop (allow 2-3 hours with stops)</li>
+                                <li>Must-see viewpoints: Rim Village, Discovery Point, Watchman Overlook</li>
+                                <li>Watchman Peak Trail: 1.6 mi RT, 420 ft gain, 1 hour - best sunset views</li>
+                                <li>Deepest lake in the US at 1,943 feet</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">7:00 PM <span class="itinerary-type">Hotel</span></div>
+                        <div class="itinerary-title">Crater Lake Lodge</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Located on the rim of Crater Lake</li>
+                                <li>Check-in: 4:00 PM • Check-out: 11:00 AM</li>
+                                <li>Rate: $200-285/night per room (need 2 rooms)</li>
+                                <li>Phone: (866) 292-6720</li>
+                                <li>Historic 1915 lodge • Restaurant on-site</li>
+                                <li>Book far in advance - extremely popular</li>
+                                <li><a href="https://www.travelcraterlake.com" target="_blank">travelcraterlake.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="notes">
+                        <h4>Notes</h4>
+                        <ul>
+                            <li>Check out of Oxford Hotel Bend by 11 AM</li>
+                            <li>Crater Lake Lodge books up 13 months in advance</li>
+                            <li>Weather can be unpredictable - bring layers</li>
+                            <li>Rim Drive typically fully open July-October</li>
+                            <li>Limited cell service at the park</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 4 -->
+        <section id="day4">
+            <div class="day-section">
+                <div class="day-header">
+                    <h3>DAY 4</h3>
+                    <p class="date">Tuesday, September 8</p>
+                    <p class="route">Crater Lake → Yachats</p>
+                </div>
+                <div class="day-info">
+                    <div class="info-box">
+                        <div class="info-label">Drive</div>
+                        <div class="info-value">4 hr / 200 mi</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Sunset</div>
+                        <div class="info-value">7:39 PM</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Budget</div>
+                        <div class="info-value">$425</div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-map">
+                        <img src="images/Map Day 4.png" alt="Day 4 Route Map">
+                        <a href="https://maps.app.goo.gl/5bH9w7vPAmAGnGRv9" class="map-link" target="_blank">📍 View Route in Google Maps</a>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">9:00-10:00 AM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Crater Lake Sunrise (Optional)</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Early morning views before departure</li>
+                                <li>Typically less crowded</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">12:00-1:00 PM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Toketee Falls</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 1 hour 30 minutes from Crater Lake</li>
+                                <li>0.8 mile RT hike (easy, 30 minutes)</li>
+                                <li>Two-tiered waterfall plunging 113 feet</li>
+                                <li>Columnar basalt formations</li>
+                                <li>Free parking and access</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">4:00 PM <span class="itinerary-type">Hotel</span></div>
+                        <div class="itinerary-title">Overleaf Lodge</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 2 hours 30 minutes from Toketee Falls</li>
+                                <li>Check-in: 4:00 PM • Check-out: 11:00 AM</li>
+                                <li>Rate: $200-300/night per room (need 2 rooms)</li>
+                                <li>Phone: (541) 547-4880</li>
+                                <li>Oceanfront location • All rooms have ocean views</li>
+                                <li>Spa and indoor pool</li>
+                                <li><a href="http://overleaflodge.com" target="_blank">overleaflodge.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">5:00-7:00 PM <span class="itinerary-type">Activity</span></div>
+                        <div class="itinerary-title">Yachats Beach Walk</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>804 Trail - scenic coastal path from hotel</li>
+                                <li>Tide pools at low tide</li>
+                                <li>Sunset viewing</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="notes">
+                        <h4>Notes</h4>
+                        <ul>
+                            <li>Check out of Crater Lake Lodge by 11 AM</li>
+                            <li>Long driving day - plan for rest stops</li>
+                            <li>First night on the coast!</li>
+                            <li>Yachats has limited dining - book reservations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 5 -->
+        <section id="day5">
+            <div class="day-section">
+                <div class="day-header">
+                    <h3>DAY 5</h3>
+                    <p class="date">Wednesday, September 9</p>
+                    <p class="route">Yachats → Gleneden</p>
+                </div>
+                <div class="day-info">
+                    <div class="info-box">
+                        <div class="info-label">Drive</div>
+                        <div class="info-value">1 hr / 25 mi</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Sunset</div>
+                        <div class="info-value">7:37 PM</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Budget</div>
+                        <div class="info-value">$375</div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-map">
+                        <img src="images/Map Day 5.png" alt="Day 5 Route Map">
+                        <a href="https://maps.app.goo.gl/6buvg8FteydA9vJ97" class="map-link" target="_blank">📍 View Route in Google Maps</a>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">LOW TIDE <span class="itinerary-type">⚠️ Critical</span></div>
+                        <div class="itinerary-title">Thor's Well Viewing Window</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li><strong>MUST visit 1 hour before to 1 hour after high tide</strong></li>
+                                <li>Check <a href="https://tides.net/oregon/" target="_blank">Oregon Tide Charts</a> before visit</li>
+                                <li>Best viewing: incoming tide when waves crash into the well</li>
+                                <li>Dangerous during high surf - stay back from edge</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">Time Varies <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Thor's Well</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 3 minutes from Overleaf Lodge</li>
+                                <li>Dramatic "drainpipe of the Pacific" sinkhole</li>
+                                <li>Part of Cape Perpetua Scenic Area</li>
+                                <li>Best at high tide with incoming waves</li>
+                                <li>Short walk from Cook's Chasm parking lot</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">Flexible <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Cape Perpetua Scenic Area</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Cape Perpetua Overlook - 800 ft elevation, panoramic ocean views</li>
+                                <li>Whispering Spruce Trail - 0.6 mi loop to overlook</li>
+                                <li>Devil's Churn - narrow inlet with powerful wave action</li>
+                                <li>Visitor Center with tide information</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">4:00 PM <span class="itinerary-type">Hotel</span></div>
+                        <div class="itinerary-title">Salishan Coastal Lodge</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 20 minutes from Cape Perpetua</li>
+                                <li>Check-in: 4:00 PM • Check-out: 12:00 PM</li>
+                                <li>Rate: $225-325/night per room (need 2 rooms)</li>
+                                <li>Phone: (541) 764-3600</li>
+                                <li>Luxury resort with golf, spa, nature trails</li>
+                                <li>Multiple restaurants on-site</li>
+                                <li><a href="http://salishan.com" target="_blank">salishan.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="notes">
+                        <h4>Notes</h4>
+                        <ul>
+                            <li>Check out of Overleaf Lodge by 11 AM</li>
+                            <li>CRITICAL: Check tide times for Thor's Well before departure</li>
+                            <li>Devil's Churn also best at high tide</li>
+                            <li>Short driving day allows for leisurely exploration</li>
+                            <li>Salishan is a resort - plan to enjoy amenities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 6 -->
+        <section id="day6">
+            <div class="day-section">
+                <div class="day-header">
+                    <h3>DAY 6</h3>
+                    <p class="date">Thursday, September 10</p>
+                    <p class="route">Central Coast Exploration</p>
+                </div>
+                <div class="day-info">
+                    <div class="info-box">
+                        <div class="info-label">Drive</div>
+                        <div class="info-value">1 hr / 30 mi</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Sunset</div>
+                        <div class="info-value">7:35 PM</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Budget</div>
+                        <div class="info-value">$350</div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-map">
+                        <img src="images/Map Day 6.png" alt="Day 6 Route Map">
+                        <a href="https://maps.app.goo.gl/RG8yf1bf7x4KG7jRA" class="map-link" target="_blank">📍 View Route in Google Maps</a>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">9:00-11:00 AM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Yaquina Head Outstanding Natural Area</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 15 minutes from Salishan</li>
+                                <li>Entrance: $7/vehicle</li>
+                                <li>Yaquina Head Lighthouse - tallest in Oregon (93 feet)</li>
+                                <li>Cobble Beach tide pools - best at low tide</li>
+                                <li>Harbor seal viewing area</li>
+                                <li>Quarry Cove tide pools</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">11:30 AM-2:00 PM <span class="itinerary-type">Activity</span></div>
+                        <div class="itinerary-title">Newport Waterfront</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 5 minutes</li>
+                                <li>Historic Bayfront district</li>
+                                <li>Lunch at Local Ocean Seafoods or Mo's Restaurant</li>
+                                <li>Sea lion docks - watch hundreds of sea lions</li>
+                                <li>Oregon Coast Aquarium (optional, $25/person, 2 hours)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">3:00-5:00 PM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Depoe Bay</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 10 minutes from Newport</li>
+                                <li>World's smallest harbor</li>
+                                <li>Whale watching capital - gray whales year-round</li>
+                                <li>Spouting Horn - ocean spray shoots through rocks</li>
+                                <li>Scenic walks along seawall</li>
+                                <li>Optional whale watching tour (book in advance)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">Evening <span class="itinerary-type">Hotel</span></div>
+                        <div class="itinerary-title">Return to Salishan Coastal Lodge</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 10 minutes from Depoe Bay</li>
+                                <li>Second night at Salishan</li>
+                                <li>Enjoy resort amenities: spa, nature walks, dining</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="notes">
+                        <h4>Notes</h4>
+                        <ul>
+                            <li>Check tide times for Yaquina Head tide pools</li>
+                            <li>Sea lions are most active in morning at Newport docks</li>
+                            <li>Whale watching peak seasons: Dec-Jan and Mar-Jun</li>
+                            <li>Depoe Bay best for whale watching from shore</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 7 -->
+        <section id="day7">
+            <div class="day-section">
+                <div class="day-header">
+                    <h3>DAY 7</h3>
+                    <p class="date">Friday, September 11</p>
+                    <p class="route">Coast → Cannon Beach</p>
+                </div>
+                <div class="day-info">
+                    <div class="info-box">
+                        <div class="info-label">Drive</div>
+                        <div class="info-value">2.5 hr / 85 mi</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Sunset</div>
+                        <div class="info-value">7:33 PM</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Budget</div>
+                        <div class="info-value">$425</div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-map">
+                        <img src="images/Map Day 7.png" alt="Day 7 Route Map">
+                        <a href="https://maps.app.goo.gl/ptU4AoQ6eDJu172ZA" class="map-link" target="_blank">📍 View Route in Google Maps</a>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">10:00-11:30 AM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Drift Creek Falls</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 30 minutes from Salishan</li>
+                                <li>3 mile RT moderate hike (1.5-2 hours)</li>
+                                <li>66-foot waterfall in old-growth forest</li>
+                                <li>240-foot suspension bridge over creek</li>
+                                <li>Free parking and access</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">1:00-3:00 PM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Cape Kiwanda</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 40 minutes from Drift Creek</li>
+                                <li>Massive sand dune and sandstone headland</li>
+                                <li>Pacific City beach - watch dory boats launch</li>
+                                <li>Climb the dune for panoramic views</li>
+                                <li>Pelican Brewing Company nearby for lunch</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">3:30-4:30 PM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Tillamook Creamery</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 25 minutes from Cape Kiwanda</li>
+                                <li>Free self-guided factory tour</li>
+                                <li>Watch cheese-making process</li>
+                                <li>Ice cream sampling</li>
+                                <li>Gift shop with cheese varieties</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">6:00 PM <span class="itinerary-type">Hotel</span></div>
+                        <div class="itinerary-title">Ocean Lodge</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 40 minutes from Tillamook</li>
+                                <li>Check-in: 4:00 PM • Check-out: 11:00 AM</li>
+                                <li>Rate: $200-300/night per room (need 2 rooms)</li>
+                                <li>Phone: (541) 436-2241</li>
+                                <li>Beachfront location - steps to Cannon Beach</li>
+                                <li>Ocean view rooms available</li>
+                                <li><a href="http://theoceanlodge.com" target="_blank">theoceanlodge.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">Evening <span class="itinerary-type">Activity</span></div>
+                        <div class="itinerary-title">Cannon Beach Sunset</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Evening beach walk to Haystack Rock</li>
+                                <li>Downtown Cannon Beach galleries and shops</li>
+                                <li>Dinner at local restaurants</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="notes">
+                        <h4>Notes</h4>
+                        <ul>
+                            <li>Check out of Salishan by 12:00 PM</li>
+                            <li>Drift Creek Falls trail can be muddy - wear hiking boots</li>
+                            <li>Cape Kiwanda dune climb is steep but worth it</li>
+                            <li>Cannon Beach parking fills up quickly in summer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 8 -->
+        <section id="day8">
+            <div class="day-section">
+                <div class="day-header">
+                    <h3>DAY 8</h3>
+                    <p class="date">Saturday, September 12</p>
+                    <p class="route">Cannon Beach → Portland</p>
+                </div>
+                <div class="day-info">
+                    <div class="info-box">
+                        <div class="info-label">Drive</div>
+                        <div class="info-value">1.5 hr / 80 mi</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Sunset</div>
+                        <div class="info-value">7:31 PM</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Budget</div>
+                        <div class="info-value">$350</div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-map">
+                        <img src="images/Map Day 8.png" alt="Day 8 Route Map">
+                        <a href="https://maps.app.goo.gl/NUGYQzyybdGnzKV8A" class="map-link" target="_blank">📍 View Route in Google Maps</a>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">8:00-9:30 AM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Haystack Rock Morning</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>12-minute walk from hotel</li>
+                                <li>235-ft sea stack - iconic Oregon coast landmark</li>
+                                <li>Tide pools with sea stars, anemones, hermit crabs</li>
+                                <li>Best at low tide for tide pool viewing</li>
+                                <li>Puffins nest here Apr-Aug (may still see in early Sept)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">10:00-11:00 AM <span class="itinerary-type">Attraction</span></div>
+                        <div class="itinerary-title">Oswald West State Park</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 15 minutes</li>
+                                <li>Short Beach Creek Trail (0.5 mi, easy)</li>
+                                <li>Old-growth rainforest</li>
+                                <li>Popular surf spot to watch surfers</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">2:00-9:00 PM <span class="itinerary-type">Activity</span></div>
+                        <div class="itinerary-title">Portland Attractions</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Drive: 1 hour 30 minutes to Portland</li>
+                                <li>Powell's City of Books - World's largest independent bookstore (1-2 hrs)</li>
+                                <li>Pittock Mansion - 1914 mansion with city views ($15/person, 1 hr)</li>
+                                <li>International Rose Garden - Washington Park, free (1 hr)</li>
+                                <li>Next Level Pinball Museum - 140+ games ($15/person, open till 11 PM, 2 hrs)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">Flexible <span class="itinerary-type">Hotel</span></div>
+                        <div class="itinerary-title">Canopy by Hilton Portland</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Check-in: Anytime</li>
+                                <li>Rate: $180-250/night per room (need 2 rooms)</li>
+                                <li>Phone: (971) 351-0230</li>
+                                <li>Pearl District location - walkable to restaurants</li>
+                                <li>Valet parking: $35/night</li>
+                                <li><a href="https://www.hilton.com/en/hotels/pdxcupy-canopy-portland-pearl-district/" target="_blank">hilton.com/canopy-portland</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="notes">
+                        <h4>Notes</h4>
+                        <ul>
+                            <li>Check out of Ocean Lodge by 11 AM</li>
+                            <li>Powell's Books can easily take 2-3 hours</li>
+                            <li>Next Level Pinball open until 11 PM</li>
+                            <li>Pearl District excellent for walkable dinner</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 9 -->
+        <section id="day9">
+            <div class="day-section">
+                <div class="day-header">
+                    <h3>DAY 9</h3>
+                    <p class="date">Sunday, September 13</p>
+                    <p class="route">Portland Departure</p>
+                </div>
+                <div class="day-info">
+                    <div class="info-box">
+                        <div class="info-label">Drive</div>
+                        <div class="info-value">30 min / 12 mi</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Sunset</div>
+                        <div class="info-value">N/A</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Budget</div>
+                        <div class="info-value">$50</div>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-map">
+                        <img src="images/Map Day 9.png" alt="Day 9 Route Map">
+                        <a href="https://maps.app.goo.gl/PLzFBKuocCZeoHcP8" class="map-link" target="_blank">📍 View Route in Google Maps</a>
+                    </div>
+
+                    <div class="itinerary-item">
+                        <div class="itinerary-time">Varies <span class="itinerary-type">Departure</span></div>
+                        <div class="itinerary-title">PDX Airport Departure</div>
+                        <div class="itinerary-details">
+                            <ul>
+                                <li>Hotel check-out: 11:00 AM</li>
+                                <li>Drive to airport: 30 minutes</li>
+                                <li>Mays Family: Morning flight (TBD)</li>
+                                <li>Kings Family: Afternoon flight (TBD)</li>
+                                <li>Allow 2 hours before domestic flight</li>
+                                <li>Return rental car at PDX Airport</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="notes">
+                        <h4>Notes</h4>
+                        <ul>
+                            <li>Confirm rental car return location</li>
+                            <li>Fill up gas before airport (stations nearby)</li>
+                            <li>Different departure times - coordinate if desired</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            // Show/hide back to top button
+            if (currentScroll > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+
+            // Hide/show navbar on scroll
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                navbar.classList.add('hidden');
+            } else {
+                navbar.classList.remove('hidden');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animate sections on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
